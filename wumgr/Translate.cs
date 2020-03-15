@@ -90,6 +90,7 @@ namespace wumgr
             mStrings.Add("col_title", "Title");
             mStrings.Add("col_cat", "Category");
             mStrings.Add("col_kb", "KB Article");
+            mStrings.Add("col_app_id", "Application ID");
             mStrings.Add("col_date", "Date");
             mStrings.Add("col_site", "Size");
             mStrings.Add("col_stat", "State");
@@ -127,6 +128,10 @@ namespace wumgr
             mStrings.Add("lbl_store", "Disable Store Auto Update");
             mStrings.Add("lbl_drv", "Include Drivers");
             mStrings.Add("msg_disable_au", "For the new configuration to fully take effect a reboot is required.");
+            mStrings.Add("lbl_all", "Select All");
+            mStrings.Add("lbl_group", "Group Updates");
+            mStrings.Add("lbl_patreon", "Support WuMgr on Patreon");
+            mStrings.Add("lbl_github", "Visit WuMgr on GitHub");
 
             string langINI = Program.appPath + @"\Translation.ini";
 

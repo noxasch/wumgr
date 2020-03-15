@@ -36,6 +36,9 @@
             this.panelList = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
             this.lblSupport = new System.Windows.Forms.LinkLabel();
+            this.chkGrupe = new System.Windows.Forms.CheckBox();
+            this.chkAll = new System.Windows.Forms.CheckBox();
+            this.lblPatreon = new System.Windows.Forms.LinkLabel();
             this.updateView = new wumgr.ListViewExtended();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -152,10 +155,15 @@
             this.tableLayoutPanel7.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel7.ColumnCount = 2;
+            this.tableLayoutPanel7.ColumnCount = 4;
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.tableLayoutPanel7.Controls.Add(this.lblSupport, 1, 0);
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel7.Controls.Add(this.lblSupport, 3, 0);
+            this.tableLayoutPanel7.Controls.Add(this.chkGrupe, 1, 0);
+            this.tableLayoutPanel7.Controls.Add(this.chkAll, 0, 0);
+            this.tableLayoutPanel7.Controls.Add(this.lblPatreon, 2, 0);
             this.tableLayoutPanel7.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel7.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel7.Name = "tableLayoutPanel7";
@@ -168,14 +176,54 @@
             // 
             this.lblSupport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.lblSupport.AutoSize = true;
-            this.lblSupport.Location = new System.Drawing.Point(398, 3);
+            this.lblSupport.Location = new System.Drawing.Point(423, 5);
             this.lblSupport.Name = "lblSupport";
-            this.lblSupport.Size = new System.Drawing.Size(94, 13);
+            this.lblSupport.Size = new System.Drawing.Size(69, 13);
             this.lblSupport.TabIndex = 0;
             this.lblSupport.TabStop = true;
             this.lblSupport.Text = "Support URL";
             this.lblSupport.Visible = false;
             this.lblSupport.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblSupport_LinkClicked);
+            // 
+            // chkGrupe
+            // 
+            this.chkGrupe.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkGrupe.AutoSize = true;
+            this.chkGrupe.Location = new System.Drawing.Point(79, 3);
+            this.chkGrupe.Name = "chkGrupe";
+            this.chkGrupe.Size = new System.Drawing.Size(98, 17);
+            this.chkGrupe.TabIndex = 1;
+            this.chkGrupe.Text = "Group Updates";
+            this.chkGrupe.UseVisualStyleBackColor = true;
+            this.chkGrupe.CheckedChanged += new System.EventHandler(this.chkGrupe_CheckedChanged);
+            // 
+            // chkAll
+            // 
+            this.chkAll.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkAll.AutoSize = true;
+            this.chkAll.Location = new System.Drawing.Point(3, 3);
+            this.chkAll.Name = "chkAll";
+            this.chkAll.Size = new System.Drawing.Size(70, 17);
+            this.chkAll.TabIndex = 2;
+            this.chkAll.Text = "Select All";
+            this.chkAll.UseVisualStyleBackColor = true;
+            this.chkAll.CheckedChanged += new System.EventHandler(this.chkAll_CheckedChanged);
+            // 
+            // lblPatreon
+            // 
+            this.lblPatreon.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblPatreon.AutoSize = true;
+            this.lblPatreon.Location = new System.Drawing.Point(183, 5);
+            this.lblPatreon.Name = "lblPatreon";
+            this.lblPatreon.Size = new System.Drawing.Size(234, 13);
+            this.lblPatreon.TabIndex = 0;
+            this.lblPatreon.TabStop = true;
+            this.lblPatreon.Text = "Support WuMgr on Patreon";
+            this.lblPatreon.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblPatreon_LinkClicked);
             // 
             // updateView
             // 
@@ -190,6 +238,7 @@
             this.columnHeader4,
             this.columnHeader5,
             this.columnHeader6});
+            this.updateView.HideSelection = false;
             this.updateView.Location = new System.Drawing.Point(3, 23);
             this.updateView.Name = "updateView";
             this.updateView.ShowItemToolTips = true;
@@ -198,7 +247,7 @@
             this.updateView.UseCompatibleStateImageBehavior = false;
             this.updateView.View = System.Windows.Forms.View.Details;
             this.updateView.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.updateView_ColumnClick);
-            this.updateView.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.updateView_ItemCheck);
+            this.updateView.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.updateView_ItemChecked);
             this.updateView.SelectedIndexChanged += new System.EventHandler(this.updateView_SelectedIndexChanged);
             // 
             // columnHeader1
@@ -966,6 +1015,9 @@
         private System.Windows.Forms.Button btnSearchOff;
         private System.Windows.Forms.TextBox txtFilter;
         private System.Windows.Forms.Label lblSearch;
+        private System.Windows.Forms.CheckBox chkGrupe;
+        private System.Windows.Forms.CheckBox chkAll;
+        private System.Windows.Forms.LinkLabel lblPatreon;
     }
 }
 

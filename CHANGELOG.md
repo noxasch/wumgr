@@ -2,6 +2,46 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.1] - 2019-12-11
+### Added
+- DpiAwareness
+- Application ID column
+- support for DeploymentAction='OptionalInstallation'
+
+
+## [1.0] - 2019-10-19
+### Added
+- Added italian translation thx @irondave
+- Added Brazilian Portuguese translation thx @Possessed777
+- Added ini option to select language
+
+### Fixed
+- fixed minor issues with progress display
+
+### Changed
+- date format should now be proeprly localized
+- improved auto check for update feature
+
+
+## [0.9a+] - 2018-12-07
+### Added
+- Added Russian translation thx @zetcamp
+
+## [0.9a] - 2018-12-06
+### Added
+- Added Japanese translation thx @Rukoto 
+- Added Polish translation thx @vitos
+- added select all checkbox
+
+### Fixed
+- Fixed auto update crash issue
+- date formating in last searche for rupdate log
+- fixed date and size sorting issue in columns
+
+### Changed
+- now ctrl+f sets cursot to the searhc box
+- improved sorting, now sort order can be reversed by clicking agina on the column
+
 
 ## [0.8g beta] - 2018-11-1
 ### Added

@@ -12,6 +12,7 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using System.ServiceProcess;
 using System.Collections.Specialized;
+using System.Globalization;
 
 namespace wumgr
 {
@@ -390,7 +391,14 @@ namespace wumgr
             // http://msdn.microsoft.com/en-us/library/windows/desktop/aa386526(v=VS.85).aspx
             try
             {
-                mSearchJob = mUpdateSearcher.BeginSearch("(IsInstalled = 0 and IsHidden = 0) or (IsInstalled = 1 and IsHidden = 0) or (IsHidden = 1)", mCallback, null);
+                //string query = "(IsInstalled = 0 and IsHidden = 0) or (IsInstalled = 1 and IsHidden = 0) or (IsHidden = 1)";
+                //string query = "(IsInstalled = 0 and IsHidden = 0) or (IsInstalled = 1 and IsHidden = 0) or (IsHidden = 1) or (IsInstalled = 0 and IsHidden = 0 and DeploymentAction='OptionalInstallation') or (IsInstalled = 1 and IsHidden = 0 and DeploymentAction='OptionalInstallation') or (IsHidden = 1 and DeploymentAction='OptionalInstallation')";
+                string query;
+                if (MiscFunc.IsWindows7OrLower)
+                    query = "(IsInstalled = 0 and IsHidden = 0) or (IsInstalled = 1 and IsHidden = 0) or (IsHidden = 1)";
+                else
+                    query = "(IsInstalled = 0 and IsHidden = 0 and DeploymentAction=*) or (IsInstalled = 1 and IsHidden = 0 and DeploymentAction=*) or (IsHidden = 1 and DeploymentAction=*)";
+                mSearchJob = mUpdateSearcher.BeginSearch(query, mCallback, null);
             }
             catch (Exception err)
             {
@@ -500,9 +508,6 @@ namespace wumgr
             if (mUpdateInstaller.IsBusy())
                 return RetCodes.Busy;
 
-            mCurOperation = AgentOperation.RemoveingUpdates;
-            OnProgress(-1, 0, 0, 0);
-
             List<MsUpdate> FilteredUpdates = new List<MsUpdate>();
             foreach (MsUpdate Update in Updates)
             {
@@ -519,6 +524,9 @@ namespace wumgr
                 return RetCodes.NoUpdated;
             }
 
+            mCurOperation = AgentOperation.RemoveingUpdates;
+            OnProgress(-1, 0, 0, 0);
+
             if (!mUpdateInstaller.UnInstall(FilteredUpdates))
                 OnFinished(RetCodes.InstallFailed);
 
@@ -527,6 +535,12 @@ namespace wumgr
 
         void DownloadsFinished(object sender, UpdateDownloader.FinishedEventArgs args) // "manuall" mode
         {
+            if (mCurOperation == AgentOperation.CancelingOperation)
+            {
+                OnFinished(RetCodes.Abborted);
+                return;
+            }
+
             if (mCurOperation == AgentOperation.PreparingCheck)
             {
                 AppLog.Line("wsusscn2.cab downloaded");
@@ -1087,7 +1101,7 @@ namespace wumgr
                 Program.IniWriteValue(Update.KB, "Info", Update.Description, INIPath);
                 Program.IniWriteValue(Update.KB, "Category", Update.Category, INIPath);
 
-                Program.IniWriteValue(Update.KB, "Date", Update.Date.ToString("dd.MM.yyyy"), INIPath);
+                Program.IniWriteValue(Update.KB, "Date", Update.Date.ToString(CultureInfo.CurrentUICulture.DateTimeFormat.ShortDatePattern), INIPath);
                 Program.IniWriteValue(Update.KB, "Size", Update.Size.ToString(), INIPath);
 
                 Program.IniWriteValue(Update.KB, "SupportUrl", Update.SupportUrl, INIPath);
